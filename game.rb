@@ -1,11 +1,14 @@
 class Game
+  WIN_COMBINATIONS = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+  ].freeze
+
   def initialize(player1, player2)
     @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     @players = [player1, player2]
     print_board
   end
-
-  public
 
   def play_round(i)
     player = @players[i]
@@ -51,8 +54,7 @@ class Game
   end
 
   def check_for_winner
-    win_combinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-    win_combinations.each do |comb|
+    WIN_COMBINATIONS.each do |comb|
       return @board[comb[0]] if @board[comb[0]] == @board[comb[1]] && @board[comb[1]] == @board[comb[2]]
     end
     nil
