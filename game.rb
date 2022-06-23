@@ -14,7 +14,7 @@ class Game
       position = gets.to_i
       raise 'Errorz' if position < 1 || position > 9 || @board[position - 1] == 'X' || @board[position - 1] == 'O'
     rescue
-      puts 'Enter a correct position'
+      puts 'Enter a valid position'
       retry
     else
       update_board(position, player.selector)
@@ -27,7 +27,17 @@ class Game
     change_cell(position, selector)
     winner_selector = check_for_winner
     print_board
-    end_game_with_winner(winner_selector) if winner_selector
+    return end_game_with_winner(winner_selector) if winner_selector
+    end_game_with_tie if full?
+  end
+
+  def full?
+    @board.all? { |cell| cell == 'X' || cell == 'O' }
+  end
+
+  def end_game_with_tie
+    puts "\nYou both tied!\n\n"
+    'END'
   end
 
   def end_game_with_winner(winner_selector)
